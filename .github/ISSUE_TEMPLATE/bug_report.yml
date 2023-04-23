@@ -1,0 +1,37 @@
+name: 버그 리포트
+description: 버그 발생 시 사용해주세요
+title: "[Bug]: "
+labels: ["bug"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        버그 원인, 해결 과정을 꼼꼼히 적어보자!
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: 최대한 꼼꼼히 작성해보자.
+      placeholder: 원인을 적으시오!
+      value: "원인이 뭘까"
+    validations:
+      required: true
+
+  - type: textarea
+    id: resolve
+    attributes:
+      label: How to resolve?
+      description: 최대한 꼼꼼히 작성해보자.
+      placeholder: 해결 방법을 적으시오!
+      value: "해결 방법!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: 로그를 남기자. Backtick은 생략가능!
+      render: shell

@@ -1,0 +1,30 @@
+name: 기능 개발
+description: feature 개발 시 적어주세요.
+title: "[Feature]: "
+labels: ["feature"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        기능 개발 전, 후의 상황을 '목표와 방법'으로 명시하자.
+
+  - type: textarea
+    id: before
+    attributes:
+      label: Before develop
+      description: 현재 상태를 알려주세요.
+      placeholder: 현재 상태
+      value: "기능 개발 전 상태를 적어주세요."
+    validations:
+      required: true
+
+  - type: textarea
+    id: after
+    attributes:
+      label: After develop (with procedure)
+      description: 기능 개발 후 및 순서
+      placeholder: 개발 후 및 순서를 알려주세요.
+      value: "개발 순서와 완료 후 기능 설명해주세요."
+    validations:
+      required: true
