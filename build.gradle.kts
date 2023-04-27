@@ -27,7 +27,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // H2 DB
-    runtimeOnly("com.h2database:h2")
+    implementation("com.h2database:h2")
 }
 
 tasks.withType<KotlinCompile> {
