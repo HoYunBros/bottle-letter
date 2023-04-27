@@ -11,8 +11,10 @@ jobs:
         uses: actions/checkout@master
         with:
           fetch-depth: 1
-      - name: ktlint
-        uses: ScaCap/action-ktlint@master
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-check # Change reporter
+#      - name: ktlint
+#        uses: ScaCap/action-ktlint@master
+#        with:
+#          github_token: ${{ secrets.github_token }}
+#          reporter: github-pr-check # Change reporter
+      - name: Run ktlint
+        run: ./gradlew ktlintCheck --no-daemon
