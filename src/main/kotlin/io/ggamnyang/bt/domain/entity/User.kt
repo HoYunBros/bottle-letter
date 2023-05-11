@@ -1,12 +1,15 @@
 package io.ggamnyang.bt.domain.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 class User(
-    var nickName: String,
+    @Column(nullable = false, unique = true)
+    var username: String,
 
-    var password: String
+    val password: String
+
 ) : Base()

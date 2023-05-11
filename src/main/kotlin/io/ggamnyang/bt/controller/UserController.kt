@@ -24,4 +24,11 @@ class UserController(
     ): ResponseEntity<User> {
         return ResponseEntity(userService.save(userDto), HttpStatus.CREATED)
     }
+
+    @PostMapping("/login")
+    fun login(
+        @RequestBody userDto: UserDto
+    ): ResponseEntity<String> {
+        return ResponseEntity(userService.login(userDto), HttpStatus.OK)
+    }
 }
