@@ -1,11 +1,11 @@
-package io.ggamnyang.bt.domain
+package io.ggamnyang.bt.service.userdetail
 
 import io.ggamnyang.bt.domain.entity.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails
 
-class UserDetailsImpl(private val user: User) : UserDetails {
+open class UserDetailsImpl(val user: User) : UserDetails {
 
     private var enabled: Boolean = true
 

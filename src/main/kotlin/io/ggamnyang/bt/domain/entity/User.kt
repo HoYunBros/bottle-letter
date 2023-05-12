@@ -1,5 +1,6 @@
 package io.ggamnyang.bt.domain.entity
 
+import io.ggamnyang.bt.dto.common.LoginDto
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
@@ -12,4 +13,9 @@ class User(
 
     val password: String
 
-) : Base()
+) : Base() {
+
+    companion object {
+        fun fromUserDto(loginDto: LoginDto): User = User(loginDto.username, loginDto.password)
+    }
+}

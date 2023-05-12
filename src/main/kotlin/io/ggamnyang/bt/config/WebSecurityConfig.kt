@@ -25,7 +25,10 @@ class WebSecurityConfig(
         http
             .authorizeHttpRequests { requests ->
                 requests
-                    .requestMatchers("/api/v1/users/login").permitAll()
+                    .requestMatchers(
+                        "/api/v1/users/login",
+                        "/api/v1/users"
+                    ).permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

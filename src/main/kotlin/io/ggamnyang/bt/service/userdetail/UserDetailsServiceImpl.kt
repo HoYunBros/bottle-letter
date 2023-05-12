@@ -1,6 +1,5 @@
-package io.ggamnyang.bt.service
+package io.ggamnyang.bt.service.userdetail
 
-import io.ggamnyang.bt.domain.UserDetailsImpl
 import io.ggamnyang.bt.domain.entity.User
 import io.ggamnyang.bt.repository.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
@@ -15,6 +14,6 @@ class UserDetailsServiceImpl(
         val user: User = userRepository.findByUsername(username)
             ?: throw Exception() // FIXME: UsernameNotFoundException
 
-        return UserDetailsImpl(user)
+        return UserDetailsAdapter(user)
     }
 }

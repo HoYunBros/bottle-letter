@@ -1,6 +1,6 @@
 package io.ggamnyang.bt.utils
 
-import io.ggamnyang.bt.service.UserDetailsServiceImpl
+import io.ggamnyang.bt.service.userdetail.UserDetailsServiceImpl
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
