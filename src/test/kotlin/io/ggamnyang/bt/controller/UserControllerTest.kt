@@ -5,6 +5,7 @@ import io.ggamnyang.bt.dto.common.LoginDto
 import io.ggamnyang.bt.repository.UserRepository
 import io.ggamnyang.bt.service.UserService
 import org.assertj.core.api.Assertions.*
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -31,6 +32,11 @@ class UserControllerTest {
     @BeforeEach
     fun beforeEach() {
         userService.save(LoginDto("test", "test")) // FIXME: 다른 방법 없나?
+    }
+
+    @AfterEach
+    fun afterEach() {
+        userRepository.deleteAll()
     }
 
     @Test
