@@ -23,13 +23,14 @@ class UserServiceImpl(
 
     // FIXME: userDto가 toEntity 로직을 가지고 있는게 맞을까?
     override fun save(loginDto: LoginDto): User {
-        logger.info(userRepository.findAll().toString())
         loginDto.password = passwordEncoder.encode(loginDto.password)
 
         return userRepository.save(User.fromUserDto(loginDto))
     }
 
     override fun findById(id: Long): User? = userRepository.findByIdOrNull(id)
+
+    override fun findByUsername(username: String): User? = userRepository.findByUsername(username)
 
     override fun login(loginDto: LoginDto): String {
         authenticationManager.authenticate(

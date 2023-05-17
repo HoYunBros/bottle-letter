@@ -7,4 +7,5 @@ interface UserService {
     fun save(loginDto: LoginDto): User
     fun login(loginDto: LoginDto): String
     fun findById(id: Long): User?
+    fun findByUsername(username: String): User?
 }

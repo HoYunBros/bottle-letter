@@ -5,6 +5,7 @@ import io.ggamnyang.bt.dto.common.LoginDto
 import io.ggamnyang.bt.service.UserService
 import io.ggamnyang.bt.service.userdetail.UserDetailsAdapter
 import org.slf4j.LoggerFactory
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -21,6 +22,10 @@ class UserController(
     fun signUp(
         @RequestBody loginDto: LoginDto
     ): ResponseEntity<User> {
+        if (userService.findByUsername(loginDto.username) != null) {
+            throw DataIntegrityViolationException("Unique Column. ${loginDto.username} is existed")
+        }
+
         return ResponseEntity(userService.save(loginDto), HttpStatus.CREATED)
     }
 
@@ -33,7 +38,7 @@ class UserController(
 
     @GetMapping("/me")
     fun getMe(
-        @AuthenticationPrincipal userAdapter: UserDetailsAdapter
+        @AuthenticationPrincipal userAdapter: UserDetailsAdapter // FIXME: 재고
     ): ResponseEntity<User> { // FIXME: have to return UserDto
         return ResponseEntity(userAdapter.user, HttpStatus.OK)
     }
