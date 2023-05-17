@@ -1,12 +1,21 @@
 package io.ggamnyang.bt.domain.entity
 
+import io.ggamnyang.bt.dto.common.LoginDto
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 class User(
-    var nickName: String,
+    @Column(nullable = false, unique = true)
+    var username: String,
 
-    var password: String
-) : Base()
+    val password: String
+
+) : Base() {
+
+    companion object {
+        fun fromUserDto(loginDto: LoginDto): User = User(loginDto.username, loginDto.password)
+    }
+}

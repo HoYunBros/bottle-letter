@@ -5,6 +5,7 @@ charset = utf-8
 end_of_line = lf
 indent_style = space
 insert_final_newline = true
+ij_kotlin_insert_whitespaces_in_simple_one_line_method = true
 trim_trailing_whitespace = true
 max_line_length = 120
 tab_width = 4
