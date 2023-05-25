@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.post
 @AutoConfigureMockMvc
 @SpringBootTest
 class UserControllerTest {
-
     @Autowired
     lateinit var mockMvc: MockMvc
 

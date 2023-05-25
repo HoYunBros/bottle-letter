@@ -6,5 +6,5 @@ import org.springframework.security.test.context.support.WithSecurityContext
 @WithSecurityContext(factory = WithAuthUserSecurityContextFactory::class)
 annotation class WithAuthUser(
     val username: String,
-    val role: String
+    val role: String = "user"
 )

@@ -25,7 +25,7 @@ class UserServiceImpl(
     override fun save(loginDto: LoginDto): User {
         loginDto.password = passwordEncoder.encode(loginDto.password)
 
-        return userRepository.save(User.fromUserDto(loginDto))
+        return userRepository.save(User.fromLoginDto(loginDto))
     }
 
     override fun findById(id: Long): User? = userRepository.findByIdOrNull(id)
@@ -37,8 +37,6 @@ class UserServiceImpl(
             UsernamePasswordAuthenticationToken(loginDto.username, loginDto.password, null)
         )
 
-        val token = jwtUtils.createToken(loginDto.username)
-
-        return token
+        return jwtUtils.createToken(loginDto.username)
     }
 }
