@@ -6,4 +6,5 @@ import io.ggamnyang.bt.domain.enum.BottleSource
 
 interface BottleService {
     fun findAll(user: User, bottleSource: BottleSource): List<Bottle>
+    fun save(bottle: Bottle): Bottle
 }

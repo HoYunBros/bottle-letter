@@ -1,17 +1,18 @@
 package io.ggamnyang.bt.controller
 
+import io.ggamnyang.bt.domain.entity.Bottle
 import io.ggamnyang.bt.domain.enum.BottleSource
 import io.ggamnyang.bt.dto.common.BottleDto
+import io.ggamnyang.bt.dto.request.PostBottleRequest
 import io.ggamnyang.bt.dto.response.GetBottlesResponse
+import io.ggamnyang.bt.dto.response.PostBottleResponse
 import io.ggamnyang.bt.service.BottleService
 import io.ggamnyang.bt.service.userdetail.UserDetailsAdapter
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("/api/v1/bottles")
@@ -29,6 +30,21 @@ class BottleController(
 
         return ResponseEntity(
             GetBottlesResponse(bottles.map(BottleDto::fromBottle)),
+            HttpStatus.OK
+        )
+    }
+
+    @PostMapping
+    fun addBottle(
+        @RequestBody request: PostBottleRequest,
+        @AuthenticationPrincipal userDetailsAdapter: UserDetailsAdapter
+    ): ResponseEntity<PostBottleResponse> {
+        val creator = userDetailsAdapter.user
+        val bottle = Bottle(creator, null, request.letter) // THINK: Controller에서 Entity 생성?
+        bottleService.save(bottle)
+
+        return ResponseEntity(
+            PostBottleResponse(BottleDto.fromBottle(bottle)),
             HttpStatus.OK
         )
     }
