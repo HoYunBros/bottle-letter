@@ -1,6 +1,5 @@
 package io.ggamnyang.bt.controller
 
-import io.ggamnyang.bt.domain.entity.Bottle
 import io.ggamnyang.bt.domain.enum.BottleSource
 import io.ggamnyang.bt.dto.common.BottleDto
 import io.ggamnyang.bt.dto.request.PostBottleRequest
@@ -36,12 +35,11 @@ class BottleController(
 
     @PostMapping
     fun addBottle(
-        @RequestBody request: PostBottleRequest,
+        @RequestBody postBottleRequest: PostBottleRequest,
         @AuthenticationPrincipal userDetailsAdapter: UserDetailsAdapter
     ): ResponseEntity<PostBottleResponse> {
         val creator = userDetailsAdapter.user
-        val bottle = Bottle(creator, null, request.letter) // THINK: Controller에서 Entity 생성?
-        bottleService.save(bottle)
+        val bottle = bottleService.createBottle(creator = creator, dto = postBottleRequest)
 
         return ResponseEntity(
             PostBottleResponse(BottleDto.fromBottle(bottle)),

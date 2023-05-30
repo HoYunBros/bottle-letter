@@ -10,7 +10,7 @@ import jakarta.persistence.Table
 @Table(name = "USERS")
 class User(
     @Column(nullable = false, unique = true)
-    var username: String,
+    var username: String = "",
 
     val password: String,
 

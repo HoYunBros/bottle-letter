@@ -10,7 +10,9 @@ import io.ggamnyang.bt.service.BottleService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -47,7 +49,7 @@ class BottleControllerTest {
     @WithAuthUser("creator")
     fun `get bottles + bottleSource == CREATED - success`() {
         // FIXME: 더 나은 방식이 있을 것 같다..
-        `when`(bottleService.findAll(User("creator", "password"), BottleSource.CREATED)).thenReturn(arrayListOf(bottle))
+        whenever(bottleService.findAll(any(), eq(BottleSource.CREATED))).thenReturn(arrayListOf(bottle))
 
         mockMvc.get("/api/v1/bottles") {
             contentType = MediaType.APPLICATION_JSON
@@ -56,6 +58,7 @@ class BottleControllerTest {
             .andDo { print() }
             .andExpect {
                 status { isOk() }
+                // FIXME: response 검증
             }
     }
 
@@ -63,7 +66,7 @@ class BottleControllerTest {
     @DisplayName("POST /api/v1/bottles 테스트 - 성공")
     @WithAuthUser("creator")
     fun `post bottle - success`() {
-        `when`(bottleService.save(bottle)).thenReturn(bottle)
+        whenever(bottleService.createBottle(any(), any())).thenReturn(bottle)
 
         val request = PostBottleRequest(bottle.letter)
         val requestJson = jacksonObjectMapper().writeValueAsString(request)
