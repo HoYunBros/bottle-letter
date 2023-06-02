@@ -1,0 +1,11 @@
+spring:
+
+  datasource:
+    url: external_url_of_postgresql
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true

@@ -1,20 +1,6 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        show_sql: true
-
-  datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-
-  h2:
-    console:
-      enabled: true
+  profiles:
+    active: local
 
 jwt:
   secret: gRt7wYhwDNgHz9wjHAGKYELgNoKL229QLmGa7EmyysGfHdvJJZ9oywicUUaJGXRg
