@@ -22,7 +22,8 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.FilterType
 import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post
 import org.springframework.restdocs.operation.preprocess.Preprocessors.*
 import org.springframework.restdocs.payload.PayloadDocumentation.*
 import org.springframework.restdocs.request.RequestDocumentation.*
@@ -90,7 +91,7 @@ internal class BottleControllerTest {
 
         val result = mockMvc
             .perform(
-                RestDocumentationRequestBuilders.get("/api/v1/bottles")
+                get("/api/v1/bottles")
                     .param("bottleSource", BottleSource.CREATED.toString())
                     .accept(MediaType.APPLICATION_JSON)
             )
@@ -121,7 +122,7 @@ internal class BottleControllerTest {
 
         val result = mockMvc
             .perform(
-                RestDocumentationRequestBuilders.post("/api/v1/bottles")
+                post("/api/v1/bottles")
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .content(requestJson)
