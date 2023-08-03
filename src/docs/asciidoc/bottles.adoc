@@ -1,0 +1,11 @@
+== Bottles API
+
+== 내 유리병 조회
+
+operation::bottle-me-get[snippets='http-request,http-response']
+
+== 유리병 생성
+
+operation::bottle-post[snippets='http-request,http-response']
+
+==
