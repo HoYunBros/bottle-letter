@@ -72,7 +72,7 @@ class UserControllerTest {
         result.andExpect(status().isOk)
             .andDo(
                 document(
-                    "login",
+                    "user-login-post",
                     documentRequest,
                     documentResponse,
                     requestFields(
@@ -124,7 +124,7 @@ class UserControllerTest {
         result.andExpect(status().isCreated)
             .andDo(
                 document(
-                    "signUp",
+                    "user-register-post",
                     documentRequest,
                     documentResponse,
                     requestFields(
@@ -169,7 +169,7 @@ class UserControllerTest {
         result.andExpect(status().isOk)
             .andDo(
                 document(
-                    "get-me",
+                    "user-me-get",
                     documentRequest,
                     documentResponse,
                     responseFields(

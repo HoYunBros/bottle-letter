@@ -56,33 +56,6 @@ internal class BottleControllerTest {
         bottle = Bottle(creator, receiver, "test letter")
     }
 
-//    override suspend fun beforeSpec(spec: Spec) {
-//        val creator = User("creator", "password")
-//        val receiver = User("receiver", "password")
-//
-//        bottle = Bottle(creator, receiver, "test letter")
-//    }
-
-//    init {
-//        Given("GET : /api/v1/bottles") {
-//            whenever(bottleService.findAll(any(), eq(BottleSource.CREATED))).thenReturn(arrayListOf(bottle))
-//
-//            When("정상적 요청") {
-//                Then("Status 200") {
-//                    mockMvc.get("/api/v1/bottles") {
-//                        contentType = MediaType.APPLICATION_JSON
-//                        param("bottleSource", "CREATED")
-//                    }
-//                        .andDo { print() }
-//                        .andExpect {
-//                            status { isOk() }
-//                            // FIXME: response 검증
-//                        }
-//                }
-//            }
-//        }
-//    }
-
     @Test
     @DisplayName("GET /api/v1/bottles 테스트 - 성공")
     @WithAuthUser("creator")
@@ -99,7 +72,7 @@ internal class BottleControllerTest {
         result.andExpect(status().isOk)
             .andDo(
                 document(
-                    "get-bottles",
+                    "bottle-me-get",
                     queryParameters(
                         parameterWithName("bottleSource").description("Creator / Receiver")
                     ),
@@ -132,7 +105,7 @@ internal class BottleControllerTest {
         result.andExpect(status().isOk)
             .andDo(
                 document(
-                    "post-bottles",
+                    "bottle-post",
                     requestFields(
                         fieldWithPath("letter").description("Letter context")
                     ),

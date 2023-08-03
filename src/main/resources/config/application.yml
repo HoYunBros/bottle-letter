@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: test
 
 jwt:
   secret: gRt7wYhwDNgHz9wjHAGKYELgNoKL229QLmGa7EmyysGfHdvJJZ9oywicUUaJGXRg
