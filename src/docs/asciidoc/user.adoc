@@ -1,13 +1,13 @@
-== Users API
+= User API
 
 == 회원 가입
 
 operation::user-register-post[snippets='http-request,http-response']
 
-=== 로그인
+== 로그인
 
 operation::user-login-post[snippets='http-request,http-response']
 
-=== 내 정보 조회
+== 내 정보 조회
 
 operation::user-me-get[snippets='http-request,http-response']

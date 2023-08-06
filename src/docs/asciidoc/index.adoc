@@ -1,5 +1,5 @@
 ifndef::snippets[]
-:snippets: ../../../build/generated-snippets
+:snippets: /build/generated-snippets
 endif::[]
 = API Document
 :doctype: book
@@ -14,4 +14,4 @@ endif::[]
 Bottle Letter API
 
 include::user.adoc[]
-include::bottles.adoc[]
+include::bottle.adoc[]
