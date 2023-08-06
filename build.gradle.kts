@@ -22,6 +22,9 @@ repositories {
     mavenCentral()
 }
 
+val asciidoctorExt: Configuration by configurations.creating
+val snippetsDir by extra { file("build/generated-snippets") }
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -52,6 +55,7 @@ dependencies {
 
     // Spring Rest docs
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+    asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
 }
 
 tasks.withType<KotlinCompile> {
@@ -65,13 +69,6 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-val asciidoctorExt: Configuration by configurations.creating
-dependencies {
-    asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
-}
-
-val snippetsDir by extra { file("build/generated-snippets") }
-
 tasks.test {
     outputs.dir(snippetsDir)
 }
@@ -80,6 +77,7 @@ tasks.asciidoctor {
     inputs.dir(snippetsDir)
     configurations(asciidoctorExt.name)
     dependsOn(tasks.test)
+    baseDirFollowsSourceFile()
     doFirst {
         delete {
             file("src/main/resources/static/docs")
@@ -89,7 +87,7 @@ tasks.asciidoctor {
 
 tasks.register("copyHTML", Copy::class) {
     dependsOn(tasks.asciidoctor)
-    from(file("build/docs/asciidoc"))
+    from(file("${tasks.asciidoctor.get().outputDir}/index.html"))
     into(file("src/main/resources/static/docs"))
 }
 
