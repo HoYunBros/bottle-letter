@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-abstract class Base(
+abstract class BaseEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     var id: Long = 0,

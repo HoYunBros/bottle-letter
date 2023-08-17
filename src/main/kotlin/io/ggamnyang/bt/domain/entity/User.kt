@@ -21,7 +21,7 @@ class User(
     @OneToMany(mappedBy = "receiver")
     val receivedBottles: List<Bottle> = arrayListOf()
 
-) : Base() {
+) : BaseEntity() {
 
     fun toUserDto() = UserDto(this.username)
 

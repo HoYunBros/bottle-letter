@@ -22,15 +22,6 @@ class BottleServiceImpl(
 
     override fun save(bottle: Bottle) = bottleRepository.save(bottle)
     override fun createBottle(creator: User, dto: PostBottleRequest): Bottle {
-        val receiver = findReceiver(creator)
-
-        return Bottle(creator, receiver, dto.letter)
-    }
-
-    private fun findReceiver(creator: User): User {
-        val users = userRepository.findRandom()
-        if (users.first().id == creator.id) return users.last() // FIXME: user가 1명이라면?
-
-        return users.first()
+        return Bottle(creator, letter = dto.letter)
     }
 }

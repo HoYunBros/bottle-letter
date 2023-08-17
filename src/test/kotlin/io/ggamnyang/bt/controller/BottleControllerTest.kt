@@ -64,7 +64,7 @@ internal class BottleControllerTest {
 
         val result = mockMvc
             .perform(
-                get("/api/v1/bottles")
+                get("/api/v1/bottles/me")
                     .param("bottleSource", BottleSource.CREATED.toString())
                     .accept(MediaType.APPLICATION_JSON)
             )

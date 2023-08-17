@@ -19,7 +19,7 @@ class BottleController(
     private val bottleService: BottleService
 ) {
 
-    @GetMapping
+    @GetMapping("/me")
     fun getBottles(
         @RequestParam bottleSource: BottleSource = BottleSource.CREATED,
         @AuthenticationPrincipal userDetailsAdapter: UserDetailsAdapter
