@@ -19,6 +19,8 @@ class Bottle(
     val receiver: User? = null,
 
     @Column(columnDefinition = "TEXT")
-    val letter: String
+    val letter: String,
 
+    @Column
+    var remaining: Int = 50
 ) : BaseEntity()

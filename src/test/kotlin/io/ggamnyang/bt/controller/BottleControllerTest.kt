@@ -1,23 +1,21 @@
 package io.ggamnyang.bt.controller
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.ninjasquad.springmockk.MockkBean
 import io.ggamnyang.bt.auth.WithAuthUser
 import io.ggamnyang.bt.domain.entity.Bottle
 import io.ggamnyang.bt.domain.entity.User
 import io.ggamnyang.bt.domain.enum.BottleSource
 import io.ggamnyang.bt.dto.request.PostBottleRequest
 import io.ggamnyang.bt.service.BottleService
+import io.mockk.every
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.eq
-import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.FilterType
 import org.springframework.http.MediaType
@@ -43,7 +41,7 @@ internal class BottleControllerTest {
     @Autowired
     lateinit var mockMvc: MockMvc
 
-    @MockBean
+    @MockkBean
     lateinit var bottleService: BottleService
 
     private lateinit var bottle: Bottle
@@ -57,10 +55,10 @@ internal class BottleControllerTest {
     }
 
     @Test
-    @DisplayName("GET /api/v1/bottles 테스트 - 성공")
+    @DisplayName("GET /api/v1/bottles/me 테스트")
     @WithAuthUser("creator")
-    fun `get bottles + bottleSource == CREATED - success`() {
-        whenever(bottleService.findAll(any(), eq(BottleSource.CREATED))).thenReturn(arrayListOf(bottle))
+    fun `내가 만든 편지 요청에 정상적으로 응답한다`() {
+        every { bottleService.findAll(any(), eq(BottleSource.CREATED)) } returns arrayListOf(bottle)
 
         val result = mockMvc
             .perform(
@@ -85,10 +83,35 @@ internal class BottleControllerTest {
     }
 
     @Test
+    @DisplayName("GET /api/v1/bottles 테스트")
+    @WithAuthUser("creator")
+    fun `편지를 줍는다`() {
+        // Kotlin DSL 느낌으로
+        every { bottleService.getBottle(any()) } returns bottle
+
+        val result = mockMvc
+            .perform(
+                get("/api/v1/bottles")
+                    .accept(MediaType.APPLICATION_JSON)
+            )
+
+        result.andExpect(status().isOk)
+            .andDo(
+                document(
+                    "bottle-get",
+                    responseFields(
+                        fieldWithPath("bottle").description("BottleDto"),
+                        fieldWithPath("bottle.letter").description("Letter context of bottle")
+                    )
+                )
+            )
+    }
+
+    @Test
     @DisplayName("POST /api/v1/bottles 테스트 - 성공")
     @WithAuthUser("creator")
     fun `post bottle - success`() {
-        whenever(bottleService.createBottle(any(), any())).thenReturn(bottle)
+        every { bottleService.createBottle(any(), any()) } returns bottle
 
         val request = PostBottleRequest(bottle.letter)
         val requestJson = jacksonObjectMapper().writeValueAsString(request)
