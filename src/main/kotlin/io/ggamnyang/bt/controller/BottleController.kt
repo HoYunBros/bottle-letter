@@ -3,6 +3,7 @@ package io.ggamnyang.bt.controller
 import io.ggamnyang.bt.domain.enum.BottleSource
 import io.ggamnyang.bt.dto.common.BottleDto
 import io.ggamnyang.bt.dto.request.PostBottleRequest
+import io.ggamnyang.bt.dto.response.GetBottleResponse
 import io.ggamnyang.bt.dto.response.GetBottlesResponse
 import io.ggamnyang.bt.dto.response.PostBottleResponse
 import io.ggamnyang.bt.service.BottleService
@@ -19,8 +20,8 @@ class BottleController(
     private val bottleService: BottleService
 ) {
 
-    @GetMapping
-    fun getBottles(
+    @GetMapping("/me")
+    fun getMyBottles(
         @RequestParam bottleSource: BottleSource = BottleSource.CREATED,
         @AuthenticationPrincipal userDetailsAdapter: UserDetailsAdapter
     ): ResponseEntity<GetBottlesResponse> {
@@ -29,6 +30,20 @@ class BottleController(
 
         return ResponseEntity(
             GetBottlesResponse(bottles.map(BottleDto::fromBottle)),
+            HttpStatus.OK
+        )
+    }
+
+    @GetMapping
+    fun getBottle(
+        @AuthenticationPrincipal userDetailsAdapter: UserDetailsAdapter
+    ): ResponseEntity<GetBottleResponse> {
+        val receiver = userDetailsAdapter.user
+        val bottle = bottleService.getBottle(receiver)
+
+        // FIXME: Response 추상화 작업 필요
+        return ResponseEntity(
+            GetBottleResponse(if (bottle != null) BottleDto.fromBottle(bottle) else null),
             HttpStatus.OK
         )
     }

@@ -49,6 +49,8 @@ dependencies {
 
     // mockito kotlin
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    // mockk
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
 
     // Kotest
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.5.5")
